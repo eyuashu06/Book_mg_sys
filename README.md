@@ -67,7 +67,7 @@ NPM or Yarn (Package manager)
 
 Step 1: Clone the Repository
 bash
-git clone https://github.com/yourusername/book-management.git
+git clone https://github.com/eyuashu06/book-management.git
 cd book-management
 Step 2: Install PHP Dependencies
 bash
@@ -460,7 +460,7 @@ Update documentation
 This project is open-sourced software licensed under the MIT license.
 
 👥 Authors
-Your Name - Your GitHub
+Your Name - github.com/eyuashu06
 
 🙏 Acknowledgments
 Laravel - The PHP framework
@@ -472,11 +472,11 @@ Inertia.js - The glue between Laravel and Vue
 Tailwind CSS - Utility-first CSS framework
 
 📞 Contact
-Email: your.email@example.com
+Email: eashenafi82@gmail.com.com
 
-GitHub: github.com/yourusername
+GitHub: github.com/eyuashu06
 
-LinkedIn: linkedin.com/in/yourusername
+LinkedIn: linkedin.com/in/eyuel-ashenafi
 
 🎯 Roadmap
 Upcoming Features
