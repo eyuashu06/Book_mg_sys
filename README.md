@@ -67,8 +67,7 @@ NPM or Yarn (Package manager)
 
 Step 1: Clone the Repository
 bash
-git clone https://github.com/eyuashu06/book-management.git
-cd book-management
+git clone https://github.com/eyuashu06/Book_mg_sys.git
 Step 2: Install PHP Dependencies
 bash
 composer install
