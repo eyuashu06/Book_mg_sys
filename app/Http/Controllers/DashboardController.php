@@ -2,26 +2,47 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\Review;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $totalBooks = Book::count();
-        $recentBooks = Book::latest()->take(5)->get(['id', 'title', 'author', 'published_year']);
-        $booksByYear = Book::selectRaw('published_year, count(*) as total')
-            ->groupBy('published_year')
-            ->orderBy('published_year', 'desc')
-            ->take(10)
-            ->get();
+        $user = Auth::user();
+
+        $stats = [
+            'total' => Book::where('user_id', $user->id)->count(),
+            'reading' => Book::where('user_id', $user->id)
+                ->where('reading_status', 'reading')->count(),
+            'completed' => Book::where('user_id', $user->id)
+                ->where('reading_status', 'completed')->count(),
+            'reviews' => Review::whereHas('book', function ($q) use ($user) {
+                $q->where('user_id', $user->id);
+            })->count(),
+        ];
+
+        $recentBooks = Book::where('user_id', $user->id)
+            ->latest()
+            ->take(5)
+            ->get()
+            ->map(function ($book) {
+                return [
+                    'id' => $book->id,
+                    'title' => $book->title,
+                    'author' => $book->author,
+                    'cover_url' => $book->cover_url,
+                    'created_at_from_now' => Carbon::parse($book->created_at)->diffForHumans(),
+                ];
+            });
 
         return Inertia::render('Dashboard', [
-            'totalBooks'  => $totalBooks,
+            'stats' => $stats,
             'recentBooks' => $recentBooks,
-            'booksByYear' => $booksByYear,
         ]);
     }
 }

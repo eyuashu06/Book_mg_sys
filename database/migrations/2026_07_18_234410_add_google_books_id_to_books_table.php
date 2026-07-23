@@ -1,0 +1,27 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('books', function (Blueprint $table) {
+            $table->string('google_books_id')->nullable()->unique()->after('isbn');
+            $table->string('preview_link')->nullable()->after('book_file');
+            $table->json('google_books_data')->nullable()->after('metadata');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('books', function (Blueprint $table) {
+            $table->dropColumn(['google_books_id', 'preview_link', 'google_books_data']);
+        });
+    }
+};
